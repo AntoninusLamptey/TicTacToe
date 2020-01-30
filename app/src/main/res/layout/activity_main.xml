@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    android:orientation="vertical">
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:orientation="horizontal"
+        >
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_weight="2"
+            >
+            <TextView
+                android:id="@+id/player1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Player 1: 0"
+                android:textSize="16dp"
+                android:fontFamily="serif"
+                />
+
+            <TextView
+                android:id="@+id/player2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Player 2: 0"
+                android:textSize="16dp"
+                android:fontFamily="serif"/>
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/undo"
+            android:onClick="undoLast"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/reset_button_drawable"
+            />
+
+
+        <Button
+            android:id="@+id/reset"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/reset_button_drawable"
+            android:onClick="resetBoard"
+            android:text="Reset"
+            android:textAllCaps="false"
+            android:textColor="#fff"
+            android:textSize="20dp"
+            android:layout_weight="3"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_weight="1">
+
+        <Button
+            android:id="@+id/grid00"
+            android:tag="grid00"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:onClick="playerPlayed"
+            android:textSize="100dp"
+            android:textColor="#fff"
+            android:background="@drawable/button_looks"
+            android:layout_marginLeft="5dp"
+            android:layout_marginBottom="5dp"
+            />
+        <Button
+            android:id="@+id/grid01"
+            android:tag="grid01"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:onClick="playerPlayed"
+            android:text=""
+            android:textSize="100dp"
+            android:textColor="#fff"
+            android:background="@drawable/button_looks"
+            android:layout_marginLeft="5dp"
+            android:layout_marginBottom="5dp"
+            />
+        <Button
+            android:id="@+id/grid02"
+            android:tag="grid02"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:onClick="playerPlayed"
+            android:text=""
+            android:textSize="100dp"
+            android:textColor="#fff"
+            android:background="@drawable/button_looks"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginBottom="5dp"
+            />
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_weight="1">
+
+        <Button
+            android:id="@+id/grid10"
+            android:tag="grid10"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:textSize="100dp"
+            android:textColor="#fff"
+            android:onClick="playerPlayed"
+            android:background="@drawable/button_looks"
+            android:layout_marginLeft="5dp"
+            android:layout_marginBottom="5dp"
+
+            />
+        <Button
+            android:id="@+id/grid11"
+            android:tag="grid11"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:textSize="100dp"
+            android:textColor="#fff"
+            android:onClick="playerPlayed"
+            android:background="@drawable/button_looks"
+            android:layout_marginLeft="5dp"
+            android:layout_marginBottom="5dp"
+            />
+        <Button
+            android:id="@+id/grid12"
+            android:tag="grid12"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:textSize="100dp"
+            android:textColor="#fff"
+            android:onClick="playerPlayed"
+            android:background="@drawable/button_looks"
+            android:layout_marginLeft="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginRight="5dp"
+            />
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_weight="1">
+
+        <Button
+            android:id="@+id/grid20"
+            android:tag="grid20"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:textSize="100dp"
+            android:textColor="#fff"
+            android:onClick="playerPlayed"
+            android:background="@drawable/button_looks"
+            android:layout_marginLeft="5dp"
+            android:layout_marginBottom="5dp"
+            />
+        <Button
+            android:id="@+id/grid21"
+            android:tag="grid21"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:textSize="100dp"
+            android:textColor="#fff"
+            android:onClick="playerPlayed"
+            android:background="@drawable/button_looks"
+            android:layout_marginLeft="5dp"
+            android:layout_marginBottom="5dp"
+            />
+        <Button
+            android:id="@+id/grid22"
+            android:tag="grid22"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:textSize="100dp"
+            android:textColor="#fff"
+            android:onClick="playerPlayed"
+            android:background="@drawable/button_looks"
+            android:layout_marginLeft="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginRight="5dp"
+            />
+
+    </LinearLayout>
+
+</LinearLayout>
