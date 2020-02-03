@@ -24,8 +24,7 @@ public class MainActivity extends AppCompatActivity {
     private int player2Points = 0;
     private static String[][] board;
 
-//hel
-
+    
     private ArrayList<String [][]> allBoards;
     private int testing = 0;
 
