@@ -52,13 +52,17 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    //function defines behavior of when a user plays, i.e. clicks any button on the grid
 
     public void playerPlayed(View view) {
         Button button = (Button) view;
         String userSelect = button.getText().toString();
 
-//        Log.i("Anton", "" + roundCount);
-        //allBoards.add(board);
+
+        //adding current board to arraylist containing all board states per round. Using roundcount as index.
+        allBoards.add(roundCount,board);
+        Log.i("Anton", "From button on grid: ");
+        //debugging code to see content of arraylist
         for(int a = 0; a <3; a++){
             for(int b = 0; b<3;b++){
                 Log.i("Anton", "\n" + allBoards.get(0)[a][b]);
@@ -68,11 +72,12 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+        //getting i,j index of what button was just clicked on the grid
         int i = Character.getNumericValue(button.getTag().toString().charAt(4));
         int j = Character.getNumericValue(button.getTag().toString().charAt(5));
 
 
-        //Printing of X or O on buttons
+        //Printing of X or O on buttons depending on button clicked by user
         if (userSelect.equals("") && player1Turn) {
             button.setText("X");
             roundCount++;
@@ -83,10 +88,11 @@ public class MainActivity extends AppCompatActivity {
             roundCount++;
         }
 
-
+        //copying board most recently played button into board state array
         board[i][j] = button.getText().toString();
         Boolean whoWon = winner();
 
+        //checking for winner to display dialog box
         if (player1Turn == true && whoWon == true) {
             player1TextView.setText("Player 1: " + ++player1Points);
             whoWon = false;
@@ -143,6 +149,8 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    //function to determine winner of the game
+
     public boolean winner() {
 
         //columns
@@ -189,6 +197,8 @@ public class MainActivity extends AppCompatActivity {
         return false;
     }
 
+    //reset board button behavior
+
     public void resetBoard(View view) {
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
@@ -200,6 +210,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+
+    //function to reset the board state array
     public void boardSet() {
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
@@ -214,6 +226,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+    //function to set board to initial blank state after game has ended or been drawn
     public void gameWinReset() {
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
@@ -225,17 +238,23 @@ public class MainActivity extends AppCompatActivity {
         boardSet();
     }
 
+
+    //undo button behavior
     public void undoLast(View view) {
         Button eachButton;
         Resources res = getResources();
-        Log.i("Anton", "Round count is: " + roundCount);
+
+        //debugging code for weird arraylist behavior
+        Log.i("Anton", "From undo button: ");
         for(int i = 0; i<3;i++){
             for(int j = 0; j<3; j++){
 
                 Log.i("Anton", "\n\n" + allBoards.get(0)[i][j]);
             }
         }
-        //Log.i("Anton", "\n\n" + allBoards.get(roundCount-1))[i][j];
+
+
+        //Resetting board to all blank provided undo button is clicked when round count =1
         if(roundCount ==1)
         {
             //set entire  grid to blank
