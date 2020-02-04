@@ -11,7 +11,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.example.tictactoe.Utility.TicTacAlertDialog;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -92,7 +91,6 @@ public class MainActivity extends AppCompatActivity {
             boardSet();
 
             //Alerts
-            new TicTacAlertDialog(this, "Helo", "you won");
             gameOver.setMessage("Game over, Player 1 Won");
             gameOver.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                 @Override
@@ -260,7 +258,7 @@ public class MainActivity extends AppCompatActivity {
          roundCount--;
 
     }
-    
+
     //to allow deep copies of arrays, copied from: https://stackoverflow.com/a/9106176/2711811
     public static String[][] deepCopyStrMatrix(String[][] input) {
         if (input == null)
