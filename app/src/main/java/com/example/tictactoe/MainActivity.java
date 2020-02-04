@@ -19,12 +19,12 @@ import java.util.Arrays;
 public class MainActivity extends AppCompatActivity {
 
     private boolean player1Turn = true;
-    private int roundCount = 1;
+    private int roundCount = 0;
     private int player1Points = 0;
     private int player2Points = 0;
     private static String[][] board;
 
-    
+
     private ArrayList<String [][]> allBoards;
     private int testing = 0;
 
@@ -51,6 +51,8 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+
+
     //function defines behavior of when a user plays, i.e. clicks any button on the grid
 
     public void playerPlayed(View view) {
@@ -59,16 +61,8 @@ public class MainActivity extends AppCompatActivity {
 
 
         //adding current board to arraylist containing all board states per round. Using roundcount as index.
-        allBoards.add(roundCount,board);
-        Log.i("Anton", "From button on grid: ");
-        //debugging code to see content of arraylist
-        for(int a = 0; a <3; a++){
-            for(int b = 0; b<3;b++){
-                Log.i("Anton", "\n" + allBoards.get(0)[a][b]);
-            }
-        }
 
-
+        allBoards.add(roundCount,deepCopyStrMatrix(board));
 
 
         //getting i,j index of what button was just clicked on the grid
@@ -239,54 +233,42 @@ public class MainActivity extends AppCompatActivity {
 
 
     //undo button behavior
-    public void undoLast(View view) {
+    public void undoLast(View view)
+    {
         Button eachButton;
         Resources res = getResources();
 
-        //debugging code for weird arraylist behavior
-        Log.i("Anton", "From undo button: ");
-        for(int i = 0; i<3;i++){
-            for(int j = 0; j<3; j++){
-
-                Log.i("Anton", "\n\n" + allBoards.get(0)[i][j]);
-            }
-        }
-
-
-        //Resetting board to all blank provided undo button is clicked when round count =1
-        if(roundCount ==1)
-        {
-            //set entire  grid to blank
-            for(int i = 0; i <3; i++)
-            {
-                for(int j = 0; j<3;j++)
-                {
+         for(int i = 0; i <3; i++)
+         {
+             for(int j = 0; j<3;j++)
+             {
                     int id = res.getIdentifier("grid" + i + j, "id", getBaseContext().getPackageName());
                     eachButton = findViewById(id);
-                        eachButton.setText("");
-                }
-            }
-
-
-        }
-        else{
-            for(int i = 0; i <3; i++)
-            {
-                for(int j = 0; j<3;j++)
-                {
-                    int id = res.getIdentifier("grid" + i + j, "id", getBaseContext().getPackageName());
-                    eachButton = findViewById(id);
-                    String cellValue = allBoards.get(roundCount-2)[i][j];
+                    String cellValue = allBoards.get(roundCount-1)[i][j];
                     if(cellValue.equals("X") || cellValue.equals("O"))
                     {
                         eachButton.setText(cellValue);
-                    }else{
+
+                    }else {
                         eachButton.setText("");
+
                     }
                 }
-            }
+         }
+         board = deepCopyStrMatrix(allBoards.get(roundCount-1));
+         player1Turn = !player1Turn;
+         roundCount--;
 
-            //use index of 0 for rounnd 1
+    }
+    
+    //to allow deep copies of arrays, copied from: https://stackoverflow.com/a/9106176/2711811
+    public static String[][] deepCopyStrMatrix(String[][] input) {
+        if (input == null)
+            return null;
+        String[][] result = new String[input.length][];
+        for (int r = 0; r < input.length; r++) {
+            result[r] = input[r].clone();
         }
+        return result;
     }
 }
