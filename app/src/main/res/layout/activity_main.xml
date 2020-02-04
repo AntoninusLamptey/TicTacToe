@@ -40,14 +40,16 @@
                 android:fontFamily="serif"/>
         </LinearLayout>
 
-        <Button
+        <ImageButton
             android:id="@+id/undo"
-            android:onClick="undoLast"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_width="3dp"
+            android:layout_marginRight="10dp"
+            android:layout_height="45dp"
             android:layout_weight="1"
-            android:background="@drawable/reset_button_drawable"
-            />
+            android:src="@drawable/ic_undo_black_24dp"
+            android:background="@drawable/undo_background"
+            android:backgroundTint="#E20202"
+            android:onClick="undoLast" />
 
 
         <Button

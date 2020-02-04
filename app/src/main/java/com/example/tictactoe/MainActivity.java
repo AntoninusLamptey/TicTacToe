@@ -8,9 +8,9 @@ import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
-
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
 
         player1TextView = findViewById(R.id.player1);
@@ -236,26 +237,26 @@ public class MainActivity extends AppCompatActivity {
         Button eachButton;
         Resources res = getResources();
 
-         for(int i = 0; i <3; i++)
-         {
-             for(int j = 0; j<3;j++)
-             {
+        if(roundCount >0) {
+            for (int i = 0; i < 3; i++) {
+                for (int j = 0; j < 3; j++) {
                     int id = res.getIdentifier("grid" + i + j, "id", getBaseContext().getPackageName());
                     eachButton = findViewById(id);
-                    String cellValue = allBoards.get(roundCount-1)[i][j];
-                    if(cellValue.equals("X") || cellValue.equals("O"))
-                    {
+                    String cellValue = allBoards.get(roundCount - 1)[i][j];
+                    if (cellValue.equals("X") || cellValue.equals("O")) {
                         eachButton.setText(cellValue);
 
-                    }else {
+                    } else {
                         eachButton.setText("");
 
                     }
                 }
-         }
-         board = deepCopyStrMatrix(allBoards.get(roundCount-1));
-         player1Turn = !player1Turn;
-         roundCount--;
+            }
+
+            board = deepCopyStrMatrix(allBoards.get(roundCount - 1));
+            player1Turn = !player1Turn;
+            roundCount--;
+        }
 
     }
 
