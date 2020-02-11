@@ -4,9 +4,12 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.res.Resources;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -26,6 +29,9 @@ public class MainActivity extends AppCompatActivity {
 
     private ArrayList<String [][]> allBoards;
     private int testing = 0;
+    MediaPlayer songContinue;
+    int current_pos;
+
 
     private TextView player1TextView;
     private TextView player2TextView;
@@ -36,6 +42,14 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
+
+        Intent music_content = getIntent();
+        current_pos = music_content.getExtras().getInt("current_music_position");
+        Log.i("Anton", current_pos + " music back");
+
+        songContinue = MediaPlayer.create(MainActivity.this,R.raw.main_song);
+        songContinue.seekTo(current_pos);
+        songContinue.start();
 
         player1TextView = findViewById(R.id.player1);
 
@@ -270,4 +284,70 @@ public class MainActivity extends AppCompatActivity {
         }
         return result;
     }
+
+
+
+
+    public boolean onKeyDown(int keyCode, KeyEvent event)  {
+        if (keyCode == KeyEvent.KEYCODE_BACK ) {
+            Intent backButton = new Intent(MainActivity.this,MainMenu.class);
+            startActivity(backButton);
+            finish();
+            return true;
+        }
+
+        return super.onKeyDown(keyCode, event);
+    }
+
+    public void stopMusic(){
+        if (songContinue.isPlaying()){
+            current_pos = songContinue.getCurrentPosition();
+            songContinue.stop();
+
+        }
+
+    }
+
+    public void resumeSong(){
+        songContinue = MediaPlayer.create(MainActivity.this,R.raw.main_song);
+        songContinue.seekTo(this.current_pos);
+        songContinue.start();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        stopMusic();
+        Log.i("Anton", "on pause, current pos:" + current_pos);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        resumeSong();
+        Log.i("Anton", "on resume current pos:" + current_pos);
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        resumeSong();
+        Log.i("Anton", "on restart urrent pos:" + current_pos);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        stopMusic();
+        Log.i("Anton", "on stop current pos:" + current_pos);
+    }
+
+    @Override
+    protected void onDestroy()
+    {
+        super.onDestroy();
+        stopMusic();
+        Log.i("Anton", "on destroycurrent pos:" + current_pos);
+    }
 }
+
