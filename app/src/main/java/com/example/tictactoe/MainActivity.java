@@ -26,11 +26,16 @@ public class MainActivity extends AppCompatActivity {
     private int player2Points = 0;
     private static String[][] board;
 
+    static MainActivity INSTANCE;
+
 
     private ArrayList<String [][]> allBoards;
+
     private int testing = 0;
     MediaPlayer songContinue;
     int current_pos;
+    int accessCount = 0;
+    ArrayList<Integer> activityMonitor;
 
 
     private TextView player1TextView;
@@ -39,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        INSTANCE = this;
         super.onCreate(savedInstanceState);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
@@ -59,6 +65,7 @@ public class MainActivity extends AppCompatActivity {
 
         board = new String[3][3];
         allBoards = new ArrayList<String[][]>();
+
 
         boardSet();
         allBoards.add(0,board);
@@ -286,18 +293,35 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
+    //back button behavior
 
     public boolean onKeyDown(int keyCode, KeyEvent event)  {
         if (keyCode == KeyEvent.KEYCODE_BACK ) {
             Intent backButton = new Intent(MainActivity.this,MainMenu.class);
             startActivity(backButton);
+            backButton.putExtra("current_music_backposition", songContinue.getCurrentPosition());
             finish();
             return true;
         }
 
         return super.onKeyDown(keyCode, event);
     }
+
+    public static MainActivity getActivityInstance(){
+        return INSTANCE;
+    }
+
+    //add a counter to return to indicate activity has been there. Returning an arraylist
+    public ArrayList<Integer> getCurrentPosition(){
+        activityMonitor = new ArrayList<Integer>();
+        activityMonitor.add(songContinue.getCurrentPosition());
+        accessCount++;
+        activityMonitor.add(accessCount);
+        return activityMonitor;
+
+    }
+
+    //stop music function
 
     public void stopMusic(){
         if (songContinue.isPlaying()){
@@ -324,7 +348,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        resumeSong();
+        if(!songContinue.isPlaying()){
+            resumeSong();
+        }
         Log.i("Anton", "on resume current pos:" + current_pos);
     }
 

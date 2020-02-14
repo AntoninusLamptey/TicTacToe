@@ -36,6 +36,7 @@
             android:textStyle="bold" />
 
         <Button
+            android:onClick="optionsMenu"
             android:layout_width="153dp"
             android:layout_height="37dp"
             android:layout_centerInParent="true"
