@@ -33,13 +33,6 @@ public class MainMenu extends AppCompatActivity {
 
 
         Log.i("Anton", settingsPref.getConfiguredSettings("MUSIC_STATE") + "main menu music state");
-        if (mainMusic.currentPos != 0 && settingsPref.getConfiguredSettings("MUSIC_STATE")) {
-            mainMusic.songPlayer = MediaPlayer.create(this,R.raw.main_song);;
-            mainMusic.songPlayer.seekTo(mainMusic.currentPos);
-            mainMusic.songPlayer.start();
-        }else if(mainMusic.currentPos == 0 && settingsPref.getConfiguredSettings("MUSIC_STATE")){
-            mainMusic.playMusic();
-        }
 
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
@@ -49,10 +42,9 @@ public class MainMenu extends AppCompatActivity {
     public void playGame(View view) {
 
         Intent startGame = new Intent(MainMenu.this,MainActivity.class);
-        startGame.putExtra("current_music_position", songPlayer.getCurrentPosition());
+        mainMusic.stopMusic();
         startActivity(startGame);
         finish();
-        songPlayer.stop();
     }
 
     public void optionsMenu(View view){
@@ -73,7 +65,8 @@ public class MainMenu extends AppCompatActivity {
     protected void onPause() {
           super.onPause();
           mainMusic.currentPos = mainMusic.songPlayer.getCurrentPosition();
-          mainMusic.songPlayer.stop();
+          Log.i("Anto", "Main menu in on pause");
+          mainMusic.stopMusic();
 
     }
 
@@ -81,6 +74,7 @@ public class MainMenu extends AppCompatActivity {
     protected void onDestroy() {
           super.onDestroy();
           Log.i("Anto","in on destroy main menu");
+          //mainMusic.stopMusic();
 
     }
     @Override
@@ -91,6 +85,9 @@ public class MainMenu extends AppCompatActivity {
         }
         if (mainMusic.currentPos != 0 && settingsPref.getConfiguredSettings("MUSIC_STATE")) {
             mainMusic.seekMusic();
+        }
+        if(mainMusic.currentPos == 0 && settingsPref.getConfiguredSettings("MUSIC_STATE")){
+            mainMusic.playMusic();
         }
     }
 

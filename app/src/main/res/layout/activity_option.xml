@@ -5,30 +5,34 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".OptionActivity"
-    android:background="@drawable/options_menu_background"
+    android:background="@drawable/option_menu"
     >
 
     <LinearLayout
+        android:layout_marginTop="100dp"
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:orientation="vertical"
-
-
     >
 
 
-
+        <Switch
+            android:id="@+id/musicSwitch"
+            android:layout_width="230dp"
+            android:layout_height="43dp"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="40dp"
+            android:checked="true"
+            android:fontFamily="sans-serif-condensed-medium"
+            android:text="Sound Off/On"
+            android:textAllCaps="true"
+            android:textColor="#ffff"
+            android:textSize="25dp" />
+s
 
     </LinearLayout>
 
-    <Switch
-        android:id="@+id/musicSwitch"
-        android:layout_width="198dp"
-        android:layout_height="43dp"
-        android:layout_centerInParent="true"
-        android:text="Sound Off/On"
-        android:checked="true"
-        />
+
 
 
 

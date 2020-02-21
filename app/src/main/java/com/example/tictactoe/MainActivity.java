@@ -26,7 +26,8 @@ public class MainActivity extends AppCompatActivity {
     private int player2Points = 0;
     private static String[][] board;
 
-    static MainActivity INSTANCE;
+    MusicHandler gameMusic;
+    SettingPreferences gameSettings;
 
 
     private ArrayList<String [][]> allBoards;
@@ -44,18 +45,26 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        INSTANCE = this;
         super.onCreate(savedInstanceState);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
 
-        Intent music_content = getIntent();
-        current_pos = music_content.getExtras().getInt("current_music_position");
-        Log.i("Anton", current_pos + " music back");
-
         songContinue = MediaPlayer.create(MainActivity.this,R.raw.main_song);
-        songContinue.seekTo(current_pos);
-        songContinue.start();
+        gameMusic = new MusicHandler(songContinue,this);
+
+        gameSettings = new SettingPreferences(this);
+
+
+
+        Log.i("Anton", gameMusic.currentPos + "  on create game screen");
+
+        if (gameMusic.currentPos != 0 && gameSettings.getConfiguredSettings("MUSIC_STATE")) {
+            Log.i("Anton", gameMusic.currentPos + "  on create game screen if current pos is != 0");
+            //gameMusic.seekMusic();
+        }else if(gameMusic.currentPos == 0 && gameSettings.getConfiguredSettings("MUSIC_STATE")){
+            Log.i("Anton", gameMusic.currentPos + "  on create game screen second if current pos is == 0");
+            gameMusic.playMusic();
+        }
 
         player1TextView = findViewById(R.id.player1);
 
@@ -299,7 +308,8 @@ public class MainActivity extends AppCompatActivity {
         if (keyCode == KeyEvent.KEYCODE_BACK ) {
             Intent backButton = new Intent(MainActivity.this,MainMenu.class);
             startActivity(backButton);
-            backButton.putExtra("current_music_backposition", songContinue.getCurrentPosition());
+            gameMusic.currentPos = gameMusic.songPlayer.getCurrentPosition();
+            //backButton.putExtra("current_music_backposition", songContinue.getCurrentPosition());
             finish();
             return true;
         }
@@ -307,9 +317,6 @@ public class MainActivity extends AppCompatActivity {
         return super.onKeyDown(keyCode, event);
     }
 
-    public static MainActivity getActivityInstance(){
-        return INSTANCE;
-    }
 
     //add a counter to return to indicate activity has been there. Returning an arraylist
     public ArrayList<Integer> getCurrentPosition(){
@@ -323,48 +330,49 @@ public class MainActivity extends AppCompatActivity {
 
     //stop music function
 
-    public void stopMusic(){
-        if (songContinue.isPlaying()){
-            current_pos = songContinue.getCurrentPosition();
-            songContinue.stop();
-
-        }
-
-    }
-
-    public void resumeSong(){
-        songContinue = MediaPlayer.create(MainActivity.this,R.raw.main_song);
-        songContinue.seekTo(this.current_pos);
-        songContinue.start();
-    }
+//    public void stopMusic(){
+//        if (songContinue.isPlaying()){
+//            current_pos = songContinue.getCurrentPosition();
+//            songContinue.stop();
+//
+//        }
+//
+//    }
+//
+//    public void resumeSong(){
+//        songContinue = MediaPlayer.create(MainActivity.this,R.raw.main_song);
+//        songContinue.seekTo(this.current_pos);
+//        songContinue.start();
+//    }
 
     @Override
     protected void onPause() {
         super.onPause();
-        stopMusic();
-        Log.i("Anton", "on pause, current pos:" + current_pos);
+        gameMusic.currentPos = gameMusic.songPlayer.getCurrentPosition();
+        gameMusic.stopMusic();
+        Log.i("Anton", "on pause gme screen, current pos:");
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        if(!songContinue.isPlaying()){
-            resumeSong();
+        if(!gameMusic.songPlayer.isPlaying() && gameSettings.getConfiguredSettings("MUSIC_STATE")){
+            gameMusic.seekMusic();
         }
-        Log.i("Anton", "on resume current pos:" + current_pos);
+        Log.i("Anton", "on resume game screen");
     }
 
     @Override
     protected void onRestart() {
         super.onRestart();
-        resumeSong();
+        //resumeSong();
         Log.i("Anton", "on restart urrent pos:" + current_pos);
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        stopMusic();
+        //stopMusic();
         Log.i("Anton", "on stop current pos:" + current_pos);
     }
 
@@ -372,7 +380,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onDestroy()
     {
         super.onDestroy();
-        stopMusic();
+        //stopMusic();
         Log.i("Anton", "on destroycurrent pos:" + current_pos);
     }
 }

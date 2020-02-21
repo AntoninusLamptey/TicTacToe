@@ -57,7 +57,7 @@ public class OptionActivity extends AppCompatActivity {
 
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
 
-        getWindow().setLayout((int)(displayMetrics.widthPixels * 0.7), (int) (displayMetrics.heightPixels * 0.5));
+        getWindow().setLayout((int)(displayMetrics.widthPixels * 0.8), (int) (displayMetrics.heightPixels * 0.7));
 
         musicSwitch.setChecked(settingPreferences.getConfiguredSettings("MUSIC_STATE"));
 
