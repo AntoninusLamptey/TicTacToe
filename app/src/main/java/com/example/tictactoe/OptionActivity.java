@@ -36,10 +36,7 @@ public class OptionActivity extends AppCompatActivity {
         optionMusic  = new MusicHandler(songPlayer, this);
         settingPreferences = new SettingPreferences(this);
 
-        Log.i("Anto", optionMusic.isMusicPlaying() + " option music song playing");
 
-
-        Log.i("Anto", "starting options menu");
         if (optionMusic.currentPos != 0 && settingPreferences.getConfiguredSettings("MUSIC_STATE")) {
 
             optionMusic.seekMusic();
@@ -48,7 +45,6 @@ public class OptionActivity extends AppCompatActivity {
             }
 
 
-        Log.i("Anto", optionMusicSettings.getBoolean("music_status", true) + " ");
 
 
 
@@ -57,7 +53,10 @@ public class OptionActivity extends AppCompatActivity {
 
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
 
-        getWindow().setLayout((int)(displayMetrics.widthPixels * 0.8), (int) (displayMetrics.heightPixels * 0.7));
+        getWindow().setLayout((int)(displayMetrics.widthPixels * 0.6), (int) (displayMetrics.heightPixels * 0.6));
+
+        Log.i("Anto", settingPreferences.getConfiguredSettings("MUSIC_STATE") + " music setting options menu" +
+                "") ;
 
         musicSwitch.setChecked(settingPreferences.getConfiguredSettings("MUSIC_STATE"));
 

@@ -328,22 +328,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    //stop music function
 
-//    public void stopMusic(){
-//        if (songContinue.isPlaying()){
-//            current_pos = songContinue.getCurrentPosition();
-//            songContinue.stop();
-//
-//        }
-//
-//    }
-//
-//    public void resumeSong(){
-//        songContinue = MediaPlayer.create(MainActivity.this,R.raw.main_song);
-//        songContinue.seekTo(this.current_pos);
-//        songContinue.start();
-//    }
 
     @Override
     protected void onPause() {

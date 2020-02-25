@@ -8,12 +8,6 @@
     android:background="@drawable/option_menu"
     >
 
-    <LinearLayout
-        android:layout_marginTop="100dp"
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:orientation="vertical"
-    >
 
 
         <Switch
@@ -27,11 +21,10 @@
             android:text="Sound Off/On"
             android:textAllCaps="true"
             android:textColor="#ffff"
-            android:textSize="25dp" />
-s
-
-    </LinearLayout>
-
+            android:textSize="13sp"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="60dp"
+            />
 
 
 

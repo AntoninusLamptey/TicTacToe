@@ -14,29 +14,12 @@
     <ImageView
         android:id="@+id/heading"
         android:layout_width="match_parent"
-        android:layout_height="147dp"
-        android:layout_marginTop="85dp"
-        android:src="@drawable/tic_tac_toe_logo"
-        android:paddingBottom="10dp"
+        android:layout_height="match_parent"
+        android:src="@drawable/splash_alternate"
+        android:scaleType="fitXY"
         />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="1.5in"
-        android:orientation="vertical"
-        android:gravity="center"
-        android:layout_centerInParent="true"
-        android:background="#070606"
-        android:layout_below="@+id/heading"
-        >
 
-        <pl.droidsonroids.gif.GifImageView
-            android:paddingTop="10dp"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:src="@drawable/tic_tac_toe_gif" />
-
-    </LinearLayout>
 
 
 

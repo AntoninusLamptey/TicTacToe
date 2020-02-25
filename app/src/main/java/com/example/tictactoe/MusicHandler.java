@@ -23,7 +23,6 @@ public class MusicHandler{
     public void playMusic(){
             songPlayer = MediaPlayer.create(mainContext,R.raw.main_song);
             songPlayer.start();
-            Log.i("Anto", "inside music handler music off");
 
     }
 

@@ -19,9 +19,11 @@ public class SplashScreen extends AppCompatActivity {
 
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-       if(!settingPreferences.getConfiguredSettings("MUSIC_STATE")){
-           settingPreferences.configureSys("MUSIC_STATE", true);
-       }
+        Log.i("Anto", settingPreferences.getConfiguredSettings("MUSIC_STATE") + " music setting") ;
+
+//       if(!settingPreferences.getConfiguredSettings("MUSIC_STATE")){
+//           settingPreferences.configureSys("MUSIC_STATE", true);
+//       }
 
         myHandler = new Handler();
         setContentView(R.layout.activity_splash_screen);
@@ -33,6 +35,6 @@ public class SplashScreen extends AppCompatActivity {
                 finish();
 
             }
-        },4500);
+        },1700);
     }
 }
